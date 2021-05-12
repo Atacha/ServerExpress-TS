@@ -4,18 +4,30 @@
   "description": "This is a back end created with Node.js, Express, GraphQL, TypeScript and MongoDB",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
-    "dev": "nodemon 'src/app.ts' --exec 'ts-node'"
+    "start": "yarn clear && yarn build && node dist/app.js",
+    "build": "tsc -p .",
+    "clear": "rm -rf dist",
+    "dev": "nodemon src/app.ts --exec ts-node"
   },
   "repository": "git@github.com:Atacha/ServerExpress-TS.git",
   "author": "Cesar Ortz <cesarjavierortizmontero@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "apollo-server-express": "^2.24.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "graphql": "^15.5.0",
+    "mongoose": "^5.12.8"
   },
   "devDependencies": {
+    "@types/compression": "^1.7.0",
     "@types/express": "^4.17.11",
+    "@types/graphql": "^14.5.0",
+    "@types/mongoose": "^5.10.5",
     "@types/node": "^15.0.2",
+    "graphql-tools": "^7.0.5",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "tslint": "^6.1.3",
