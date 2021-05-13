@@ -27,20 +27,20 @@ const typeDefs = gql`
 
 const resolvers: IResolvers = {
   Query: {
-    AllProducts: async (parent, args, { Product }) => {
+    AllProducts: async (_parent, _args, { Product }) => {
       const products = await Product.find();
-      return products.map((el: any) => {
+      return products.map((el: [any]) => {
         return el;
       });
     },
-    Product: async (parent, args, { Product }) => {
+    Product: async (_parent, args, { Product }) => {
       const { _id } = args;
       const product = await Product.findById(_id);
       return product;
     },
   },
   Mutation: {
-    CreateProduct: async (parent, args, { Product }) => {
+    CreateProduct: async (_parent, args, { Product }) => {
       const product = await new Product(args).save();
       return product;
     },
