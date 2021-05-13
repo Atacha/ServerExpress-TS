@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { ApolloServer } from 'apollo-server-express';
 import compression from 'compression';
 import cors from 'cors';
+import { Connect } from './config/database';
 
 import Product from './models/products/ProductsSchema';
 
@@ -20,6 +21,8 @@ const server = new ApolloServer({
 app.use(cors());
 app.use(compression());
 server.applyMiddleware({ app });
+
+Connect();
 
 app.listen(PORT, (): void =>
   console.log(
