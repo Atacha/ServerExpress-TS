@@ -5,9 +5,20 @@ const typeDefs = gql`
   type Product {
     _id: ID!
     name: String
-    description: String
-    status: String
+    mark: String
+    category: String
+    model: String
     price: Int
+    avalible: Boolean
+    stock: Int
+    color: String
+    shortDescription: String
+    longDescription: String
+    weight: Int
+    warranty: Boolean
+    timeWarranty: Int
+    inventory: Boolean
+    hidden: Boolean
   }
 
   type Query {
@@ -18,9 +29,20 @@ const typeDefs = gql`
   type Mutation {
     CreateProduct(
       name: String!
-      description: String!
-      status: String!
+      mark: String!
+      category: String!
+      model: String
       price: Int!
+      avalible: Boolean
+      stock: Int!
+      color: String
+      shortDescription: String!
+      longDescription: String
+      weight: Int
+      warranty: Boolean!
+      timeWarranty: Int
+      inventory: Boolean
+      hidden: Boolean
     ): Product
   }
 `;
