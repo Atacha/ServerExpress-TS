@@ -24,6 +24,7 @@ const typeDefs = gql`
   type Query {
     AllProducts: [Product]!
     Product(_id: ID!): Product
+    FilteredProducts(filter: String): [Product]
   }
 
   type Mutation {
@@ -44,6 +45,27 @@ const typeDefs = gql`
       inventory: Boolean
       hidden: Boolean
     ): Product
+
+    DeleteProduct(_id: ID!): Product
+
+    UpdateProduct(
+      _id: ID!
+      name: String
+      mark: String
+      category: String
+      model: String
+      price: Int
+      avalible: Boolean
+      stock: Int
+      color: String
+      shortDescription: String
+      longDescription: String
+      weight: Int
+      warranty: Boolean
+      timeWarranty: Int
+      inventory: Boolean
+      hidden: Boolean
+    ): Product
   }
 `;
 
@@ -60,11 +82,35 @@ const resolvers: IResolvers = {
       const product = await Product.findById(_id);
       return product;
     },
+    FilteredProducts: async (_parent, { filter }, { Product }) => {
+      const query = JSON.parse(filter);
+      const products = await Product.find(query);
+      return products.map((el: [any]) => {
+        return el;
+      });
+    },
   },
   Mutation: {
     CreateProduct: async (_parent, args, { Product }) => {
       const product = await new Product(args).save();
       return product;
+    },
+    DeleteProduct: async (_parent, args, { Product }) => {
+      const { _id } = args;
+      const product = await Product.findById(_id);
+      await Product.deleteOne({ _id });
+      return product;
+    },
+    UpdateProduct: async (_parent, args, { Product }) => {
+      const { _id } = args;
+      let product = await Product.findById(_id);
+      if (product) {
+        delete args._id;
+        await Product.updateOne({ _id }, args);
+        product = await Product.findById(_id);
+        return product;
+      }
+      return null;
     },
   },
 };
