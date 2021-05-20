@@ -111,7 +111,7 @@ const resolvers: IResolvers = {
     },
     UpdateProduct: async (_parent, args, { Product }) => {
       const { _id, input } = args;
-      let product = await Product.findById(_id);
+      let product: Product = await Product.findById(_id);
       if (product) {
         await Product.updateOne({ _id }, input);
         product = await Product.findById(_id);
